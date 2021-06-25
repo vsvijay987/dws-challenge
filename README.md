@@ -8,10 +8,10 @@ A development challenge for DWS Technology recruitment aimed at experienced web 
 npm install
 npm start
 ```
+Project will run at localhost:8080/
 
 To run the test:
 
 ```
 npm test
-
 ```
