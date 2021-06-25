@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <title>UI Development Challenge - DWS Technology</title>
+</head>
+
+<body>
+
+  <h1>UI Development Challenge</h1>
+
+  <section class="content">
+
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Best bid</th>
+          <th>Best ask</th>
+          <th>Open bid</th>
+          <th>Open ask</th>
+          <th>Last change ask</th>
+          <th>Last change bid</th>
+          <th>Sparkline Graph</th>
+        </tr>
+      </thead>
+
+      <tbody id = "stockRows">
+      </tbody>
+    </table>
+  </section>
+
+  <section class="documentation">
+    <h2>High Level Description</h2>
+    <p>To run the Application:</p>
+    <pre>npm start</pre>
+    <p>
+      We get Stock details as a response when our Stomp client subscribes to "fx/prices". There will be a persistant
+      connection between the client and server. So we get the continous responsetill our client is connected.
+    </p>
+    <p>
+      This program consists of mainly three functions in "controller.js":
+    </p>
+    <ul>
+      <li><strong>updateStockData</strong>: It takes two arguments. First one is "stockDetails". We fetch stock details as
+        response from stomp client. Second argument is an object("stocks"). Initially it is empty. It stores the stock
+        names as key. Value of this key is an array, which consist of the continuously fetched data on that particular
+        stock. </li>
+      <br>
+      <li><strong>updateStockTable</strong>: It also takes the same two arguments. This function makes our table in the UI from
+        the data we are getting from arguments.</li>
+        <br>
+      <li><strong>sortTable</strong>: This function is used to sort the table in ascending order by the column that indicates how
+        much the best bid price last changed (lastChangeBid in the response data).</li>
+    </ul>
+    <p>
+      For using Sparkline, I have used external "sparkline.js" file from <a
+        href="https://github.com/mariusGundersen/sparkline/blob/master/source/sparkline.js" target="_blank">sparkline.js</a> and
+      imported that in controller.js file. The sparkline package installed via npm has some issues and not working fine.
+    </p>
+
+    <p>
+      I used "Jest" for writing unit tests.
+      <pre>npm test</pre> As it is a demo app. I have included the test only for "updateStockData" function.
+    </p>
+
+  </section>
+
+  <!-- <h2>Sparkline Example</h2>
+  <span id="example-sparkline"></span> -->
+
+
+</body>
+
+</html>
