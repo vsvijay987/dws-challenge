@@ -26,7 +26,7 @@ const createNewCell = (row, value) => {
 
 const sortTable = (tableBody, col) => {
   //col is the column number by which the table should be sorted
-  let tableRows = Array.prototype.slice.call(tableBody.getElementsByTagName('tr'), 0);
+  let tableRows = Array.from(tableBody.getElementsByTagName('tr'));
   tableRows.sort((a, b)=> (parseFloat(a.cells[col].textContent) - parseFloat(b.cells[col].textContent)));
   tableRows.map(tableRow => tableBody.appendChild(tableRow))
 }
