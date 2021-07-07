@@ -18,15 +18,13 @@
           <th>Name</th>
           <th>Best bid</th>
           <th>Best ask</th>
-          <th>Open bid</th>
-          <th>Open ask</th>
           <th>Last change ask</th>
           <th>Last change bid</th>
           <th>Sparkline Graph</th>
         </tr>
       </thead>
 
-      <tbody id = "stockRows">
+      <tbody id="stockRows">
       </tbody>
     </table>
   </section>
@@ -43,20 +41,23 @@
       This program consists of mainly three functions in "controller.js":
     </p>
     <ul>
-      <li><strong>updateStockData</strong>: It takes two arguments. First one is "stockDetails". We fetch stock details as
-        response from stomp client. Second argument is an object("stocks"). Initially it is empty. It stores the stock
-        names as key. Value of this key is an array, which consist of the continuously fetched data on that particular
-        stock. </li>
+      <li><strong>updateStockData</strong>: It takes two arguments. First one is "stockDetails". We fetch stock details
+        as response from stomp client. Second argument is an object("stocks"). Initially it is empty. It stores the stock
+        names as key and their value will be the object which has the "points" array and current time stamp. This points
+        array will have the mid price values, which we need to make the sparkline. </li>
       <br>
-      <li><strong>updateStockTable</strong>: It also takes the same two arguments. This function makes our table in the UI from
+      <li><strong>updateStockTable</strong>: It also takes the same two arguments. This function makes our table in the
+        UI from
         the data we are getting from arguments.</li>
-        <br>
-      <li><strong>sortTable</strong>: This function is used to sort the table in ascending order by the column that indicates how
+      <br>
+      <li><strong>sortTable</strong>: This function is used to sort the table in ascending order by the column that
+        indicates how
         much the best bid price last changed (lastChangeBid in the response data).</li>
     </ul>
     <p>
       For using Sparkline, I have used external "sparkline.js" file from <a
-        href="https://github.com/mariusGundersen/sparkline/blob/master/source/sparkline.js" target="_blank">sparkline.js</a> and
+        href="https://github.com/mariusGundersen/sparkline/blob/master/source/sparkline.js"
+        target="_blank">sparkline.js</a> and
       imported that in controller.js file. The sparkline package installed via npm has some issues and not working fine.
     </p>
 
@@ -69,7 +70,6 @@
 
   <!-- <h2>Sparkline Example</h2>
   <span id="example-sparkline"></span> -->
-
 
 </body>
 
