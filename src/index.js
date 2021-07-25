@@ -14,9 +14,8 @@ client.debug = (msg) => {
   }
 };
 
-const stocks = {};
-
 client.connect({}, () => {
+  const stocks = {};
   // subscribe to the topic prices
   client.subscribe("/fx/prices", (res) => {
     // receivingstock details from the server
