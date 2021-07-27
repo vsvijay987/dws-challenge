@@ -1,37 +1,6 @@
 import Sparkline from "./sparkline.js";
+import {getPriceLogsSince, createNewCell} from './helper.js';
 
-/*Function to update the stocks object. The stocks object contains the points array of 
-midprices of the currency pairs which we needed to make the sparkline.*/
-export const updateStockData = (fetchedStockDetails, stocks) => {
-  const name = fetchedStockDetails.name;
-  const midPrice =
-    (fetchedStockDetails.bestBid + fetchedStockDetails.bestAsk) / 2;
-
-  if (!stocks.hasOwnProperty(name)) {
-    stocks[name] = {};
-    stocks[name]["points"] = [midPrice];
-    stocks[name]["currentTimeStamp"] = Date.now() / 1000;
-  } else {
-    const currentTimeStamp = Date.now() / 1000;
-    const timeStampDiff = currentTimeStamp - stocks[name]["currentTimeStamp"];
-    if (timeStampDiff >= 30) {
-      stocks[name]["points"].shift();
-      stocks[name]["currentTimeStamp"] = currentTimeStamp;
-    }
-
-    stocks[name]["points"].push(midPrice);
-  }
-  return stocks;
-};
-
-//Function to create new cell in the row
-const createNewCell = (row, value) => {
-  const txtValue = document.createTextNode(value);
-
-  const td = document.createElement("td");
-  td.appendChild(txtValue);
-  row.appendChild(td);
-};
 
 //Function to sort the table
 const sortTable = (tableBody, col) => {
@@ -45,14 +14,40 @@ const sortTable = (tableBody, col) => {
   tableRows.map((tableRow) => tableBody.appendChild(tableRow));
 };
 
+/*Function to update the stocks object. The stocks object contains the points array of 
+midprices of the currency pairs which we needed to make the sparkline.*/
+
+export const updateStockData = (fetchedStockDetails, stocks) => {
+  const name = fetchedStockDetails.name;
+  const midPrice =
+    (fetchedStockDetails.bestBid + fetchedStockDetails.bestAsk) / 2;
+
+  function PriceLogItem(price) {
+    this.price = price;
+    this.timestamp = new Date().getTime();
+  }
+
+  let result = [];
+
+  if (!stocks.hasOwnProperty(name)) {
+    stocks[name] = [];
+    stocks[name].push(new PriceLogItem(midPrice));
+  } else {
+    result= getPriceLogsSince(30, stocks[name]);
+    stocks[name].push(new PriceLogItem(midPrice));
+  }
+  return result;
+};
+
 //Function to create and update the stock table
 export const updateStockTable = (fetchedStockDetails, stocks) => {
-  let name = fetchedStockDetails.name;
   const dataTable = document.getElementById("stockRows");
   const existingStockRow = document.getElementById(fetchedStockDetails.name);
+  const result = updateStockData(fetchedStockDetails, stocks);
 
-  //Getting the points array for currency pairs from stocks object
-  const stockGraphSparks = stocks[name]["points"];
+  //Getting the array for midprices
+  const stockGraphSparks = result.map((ele) => ele.price);
+
   const sparks = document.createElement("span");
   Sparkline.draw(sparks, stockGraphSparks, {
     lineColor: "green",

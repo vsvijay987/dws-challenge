@@ -35,16 +35,19 @@
     <pre>npm start</pre>
     <p>
       We get Stock details as a response when our Stomp client subscribes to "fx/prices". There will be a persistant
-      connection between the client and server. So we get the continous responsetill our client is connected.
+      connection between the client and server. So we get the continous response till our client is connected.
     </p>
     <p>
       This program consists of mainly three functions in "controller.js":
     </p>
     <ul>
       <li><strong>updateStockData</strong>: It takes two arguments. First one is "stockDetails". We fetch stock details
-        as response from stomp client. Second argument is an object("stocks"). Initially it is empty. It stores the stock
-        names as key and their value will be the object which has the "points" array and current time stamp. This points
-        array will have the mid price values, which we need to make the sparkline. </li>
+        as
+        response from stomp client. Second argument is an object("stocks"). Initially it is empty. It stores the
+        currency pair
+        names as key and their value will be the array of objects, which consist of midprices and their current time
+        stamp. Now, We need the midprices of the last 30 seconds. For that we are going to use another function
+        "getPriceLogSince", and store the values in result array. This array will have the mid price values, which we need to make the sparkline. </li>
       <br>
       <li><strong>updateStockTable</strong>: It also takes the same two arguments. This function makes our table in the
         UI from
@@ -70,6 +73,7 @@
 
   <!-- <h2>Sparkline Example</h2>
   <span id="example-sparkline"></span> -->
+
 
 </body>
 
