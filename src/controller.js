@@ -1,6 +1,5 @@
 import Sparkline from "./sparkline.js";
-import {getPriceLogsSince, createNewCell} from './helper.js';
-
+import { getPriceLogsSince, createNewCell } from "./helper.js";
 
 //Function to sort the table
 const sortTable = (tableBody, col) => {
@@ -16,8 +15,7 @@ const sortTable = (tableBody, col) => {
 
 /*Function to update the stocks object. The stocks object contains the points array of 
 midprices of the currency pairs which we needed to make the sparkline.*/
-
-export const updateStockData = (fetchedStockDetails, stocks) => {
+const updateStockData = (fetchedStockDetails, stocks) => {
   const name = fetchedStockDetails.name;
   const midPrice =
     (fetchedStockDetails.bestBid + fetchedStockDetails.bestAsk) / 2;
@@ -33,7 +31,7 @@ export const updateStockData = (fetchedStockDetails, stocks) => {
     stocks[name] = [];
     stocks[name].push(new PriceLogItem(midPrice));
   } else {
-    result= getPriceLogsSince(30, stocks[name]);
+    result = getPriceLogsSince(30, stocks[name]);
     stocks[name].push(new PriceLogItem(midPrice));
   }
   return result;

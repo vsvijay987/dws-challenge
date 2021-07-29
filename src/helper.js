@@ -3,6 +3,7 @@ export const getPriceLogsSince = (secondsAgo, priceLog) => {
   let time = new Date().getTime() - millisecondsAgo;
 
   let result = [];
+
   for (let i = priceLog.length - 1; i >= 0; i--) {
     if (priceLog[i].timestamp >= time) result.push(priceLog[i]);
     else break;
