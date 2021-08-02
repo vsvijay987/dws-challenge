@@ -11,7 +11,6 @@ describe("getPriceLogsSince test", () => {
   it("should return result array if midprice is created in last 30 seconds", () => {
     const priceLog = [
       { price: 1, timestamp: new Date().getTime() - 20000 },
-      { price: 1, timestamp: new Date().getTime() - 15000 },
     ];
     const secondsAgo = 30;
     const result = getPriceLogsSince(secondsAgo, priceLog);

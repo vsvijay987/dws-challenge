@@ -24,17 +24,11 @@ const updateStockData = (fetchedStockDetails, stocks) => {
     this.price = price;
     this.timestamp = new Date().getTime();
   }
-
-  let result = [];
-
   if (!stocks.hasOwnProperty(name)) {
     stocks[name] = [];
-    stocks[name].push(new PriceLogItem(midPrice));
-  } else {
-    result = getPriceLogsSince(30, stocks[name]);
-    stocks[name].push(new PriceLogItem(midPrice));
   }
-  return result;
+  stocks[name].push(new PriceLogItem(midPrice));
+  return getPriceLogsSince(30, stocks[name]);
 };
 
 //Function to create and update the stock table
